@@ -245,15 +245,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Chart"
-        "ProductCode" = "8:{B20CC423-F6ED-4AC6-BA74-419E0885A2CA}"
-        "PackageCode" = "8:{682F3573-9844-4055-91F3-2B861D688F5C}"
+        "ProductCode" = "8:{A11496FA-B796-4B07-89D2-D1FABC4AAB2F}"
+        "PackageCode" = "8:{4567DDC9-945B-47A3-9B90-0D56ED656D69}"
         "UpgradeCode" = "8:{B2154F95-F38D-42FE-9AA5-05C7D33F788F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:3.0.6"
+        "ProductVersion" = "8:3.0.7"
         "Manufacturer" = "8:Egor"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -795,7 +795,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AD7AD3AF193440BB928227BFDE7B957B"
             {
-            "SourcePath" = "8:..\\ListApp\\obj\\Release\\ListApp.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_6AAC401528D941D5950438A8B8CB119A"

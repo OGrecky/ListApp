@@ -400,24 +400,26 @@ namespace ListApp
 		}
 		private bool Find(string s, List<string> collection)
 		{
+			List<string> found = new List<string>();
 			string res = "";
 			s = s.ToLower();
 			s = Replace(s);
-			List<string> sCol = s.Split().ToList<string>();
+			List<string> sCol = s.Split().ToList();
 			for (int i = 0; i < collection.Count; i++)
 			{
                 foreach (string item in sCol)
                 {
-					if (collection[i].Contains(item))
+					if (collection[i].Contains(item) && (found.Count != 0 && found[found.Count - 1] != Convert.ToString(i + 1) || found.Count == 0))
 					{
 						res += Convert.ToString(i + 1);
 						res += "\n";
+						found.Add(Convert.ToString(i + 1));
 					}
 				}
 			}
 			if (res != "")
 			{
-				MessageBoxResult mr = MessageBox.Show("У вас есть пункты, частично или полностью содержащие " + s + ":\n" + res + "\nДобавить в список?", "Результаты поиска", MessageBoxButton.YesNo);
+				MessageBoxResult mr = MessageBox.Show("У вас есть пункты, частично или полностью содержащие " + s + ":\n" + res + "Добавить в список?", "Результаты поиска", MessageBoxButton.YesNo);
 				if (mr == MessageBoxResult.Yes)
 				{
 					return true;
