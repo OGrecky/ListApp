@@ -266,15 +266,22 @@ namespace ListApp
 			Update();
 		}
 
+		private string Replace(string s)
+        {
+			return s.Replace('ё', 'е');
+        }
+
 		private void Update()
 		{
 			for (int i = 0; i < f.Count; i++)
 			{
 				f[i] = f[i].ToLower();
+				f[i] = Replace(f[i]);
 			}
 			for (int i = 0; i < o.Count; i++)
 			{
 				o[i] = o[i].ToLower();
+				o[i] = Replace(o[i]);
 			}
 			f.Sort();
 			o.Sort();
@@ -394,17 +401,23 @@ namespace ListApp
 		private bool Find(string s, List<string> collection)
 		{
 			string res = "";
+			s = s.ToLower();
+			s = Replace(s);
+			List<string> sCol = s.Split().ToList<string>();
 			for (int i = 0; i < collection.Count; i++)
 			{
-				if (collection[i].Contains(s))
-				{
-					res += Convert.ToString(i + 1);
-					res += "\n";
+                foreach (string item in sCol)
+                {
+					if (collection[i].Contains(item))
+					{
+						res += Convert.ToString(i + 1);
+						res += "\n";
+					}
 				}
 			}
 			if (res != "")
 			{
-				MessageBoxResult mr = MessageBox.Show("У вас есть пункты, содержащие " + s + ":\n" + res + "\nДобавить в список?", "Результаты поиска", MessageBoxButton.YesNo);
+				MessageBoxResult mr = MessageBox.Show("У вас есть пункты, частично или полностью содержащие " + s + ":\n" + res + "\nДобавить в список?", "Результаты поиска", MessageBoxButton.YesNo);
 				if (mr == MessageBoxResult.Yes)
 				{
 					return true;
