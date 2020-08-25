@@ -133,6 +133,11 @@ namespace ListApp
 				}
 				ChangeLanguage(locale);
 			}
+			else
+			{
+				System.Globalization.CultureInfo ci = System.Globalization.CultureInfo.CurrentUICulture;
+				ChangeLanguage(ci.Name);
+			}
 		}
 
 		private void currentAddButton_Click(object sender, RoutedEventArgs e)
@@ -267,9 +272,9 @@ namespace ListApp
 		}
 
 		private string Replace(string s)
-        {
+		{
 			return s.Replace('ё', 'е');
-        }
+		}
 
 		private void Update()
 		{
@@ -407,8 +412,8 @@ namespace ListApp
 			List<string> sCol = s.Split().ToList();
 			for (int i = 0; i < collection.Count; i++)
 			{
-                foreach (string item in sCol)
-                {
+				foreach (string item in sCol)
+				{
 					if (collection[i].Contains(item) && (found.Count != 0 && found[found.Count - 1] != Convert.ToString(i + 1) || found.Count == 0))
 					{
 						res += Convert.ToString(i + 1);
@@ -457,6 +462,7 @@ namespace ListApp
 				RussianVersionButton.Visibility = Visibility.Hidden;
 				EnglishVersionButton.IsEnabled = true;
 				EnglishVersionButton.Visibility = Visibility.Visible;
+				Title = "Корзинка";
 			}
 			else if (locale == "en-US")
 			{
@@ -473,17 +479,36 @@ namespace ListApp
 				EnglishVersionButton.Visibility = Visibility.Hidden;
 				RussianVersionButton.IsEnabled = true;
 				RussianVersionButton.Visibility = Visibility.Visible;
+				Title = "Chart";
 			}
-            else if (locale == "")
-            {
+			else if (locale == "en-UK")
+			{
+				System.Globalization.CultureInfo ci = new System.Globalization.CultureInfo("en-UK");
+				System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+				System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+				ClearFreezerText.Text = "Clear";
+				PrintCurrentText.Text = "Print";
+				ClearOrderText.Text = "Accept\nand\nclear";
+				PrintOrderText.Text = "Print";
+				StuffToUseText.Text = "Stuff to use\nrepeat - type the number,\nnever again - type the number, then \"!\",\nnever before - type the name";
+				StuffToBuyText.Text = "Stuff to buy\nadd - type the name,\n remove - type the number";
+				EnglishVersionButton.IsEnabled = false;
+				EnglishVersionButton.Visibility = Visibility.Hidden;
+				RussianVersionButton.IsEnabled = true;
+				RussianVersionButton.Visibility = Visibility.Visible;
+				Title = "Chart";
+			}
+			else if (locale == "")
+			{
 				locale = "ru-RU";
 				ChangeLanguage(locale);
 			}
-			else
-			{
-				MessageBox.Show("Internal error!\nPlease reinstall the application.\nYou are welcome to find fresh release here:\nhttps://pegor.keenetic.pro/Setup.msi");
-				Environment.Exit(0);
-			}
+			//else
+			//{
+			//	MessageBox.Show("Internal error!\nPlease reinstall the application.\nYou are welcome to find fresh release here:\nhttps://pegor.keenetic.pro/Setup.msi");
+			//	Environment.Exit(0);
+			//}
+			else { ChangeLanguage("en-US"); return; }
 		}
 	}
 }
