@@ -204,6 +204,7 @@ namespace ListApp
 						f.Add(cur);
 					}
 				}
+				else InvalidValue();
 			}
 			else
 			{
@@ -218,57 +219,129 @@ namespace ListApp
 				}
 				catch (Exception)
 				{
-					MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
+					InvalidValue();
 				}
 			}
 			delete = false;
 			Update();
 		}
 
+		//private void OrderAction()
+		//{
+		//	cur = orderAdd.Text;
+		//	orderAdd.Text = "";
+		//	if (!int.TryParse(cur, out num))
+		//	{
+		//		if (cur != "")
+		//		{
+		//			//isInList = false;
+		//			//for (int i = 0; i < o.Count; i++)
+		//			//{
+		//			//	if (o[i] == cur)
+		//			//	{
+		//			//		isInList = true;
+		//			//	}
+		//			//}
+		//			//if (!isInList)
+		//			//{
+		//			//	o.Add(cur);
+		//			//}
+		//			//else
+		//			//{
+		//			//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
+		//			//}
+		//			//isInList = false;
+		//			cur = cur.ToLower();
+		//			if (Find(cur, o))
+		//			{
+		//				o.Add(cur);
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		try
+		//		{
+		//			o.RemoveAt(num - 1);
+		//		}
+		//		catch (Exception)
+		//		{
+		//			MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
+		//		}
+		//	}
+		//	Update();
+		//}
+
 		private void OrderAction()
 		{
 			cur = orderAdd.Text;
 			orderAdd.Text = "";
+		A:
 			if (!int.TryParse(cur, out num))
 			{
+				if (cur.Length > 0 && cur[cur.Length - 1] == '!' && delete == false)
+				{
+					delete = true;
+					cur = cur.Remove(cur.Length - 1, 1);
+					goto A;
+				}
 				if (cur != "")
 				{
+					cur = cur.ToLower();
 					//isInList = false;
-					//for (int i = 0; i < o.Count; i++)
+					//for (int i = 0; i < f.Count; i++)
 					//{
-					//	if (o[i] == cur)
+					//	if (f[i] == cur)
 					//	{
 					//		isInList = true;
 					//	}
 					//}
 					//if (!isInList)
 					//{
-					//	o.Add(cur);
+					//	f.Add(cur);
 					//}
 					//else
 					//{
 					//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
 					//}
 					//isInList = false;
-					cur = cur.ToLower();
-					if (Find(cur, o))
+					if (Find(cur, f))
 					{
-						o.Add(cur);
+						f.Add(cur);
 					}
 				}
+				else InvalidValue();
 			}
 			else
 			{
 				try
 				{
-					o.RemoveAt(num - 1);
+					if (delete != true)
+					{
+						o.Add(f[num - 1]);
+					}
+					f.RemoveAt(num - 1);
+					delete = false;
 				}
 				catch (Exception)
 				{
-					MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
+					InvalidValue();
 				}
 			}
+			delete = false;
 			Update();
+		}
+
+		private void InvalidValue()
+        {
+			if (System.Globalization.CultureInfo.CurrentCulture.Name == "ru-RU")
+			{
+				MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
+			}
+			else
+			{
+				MessageBox.Show("Invalid value. Try again");
+			}
 		}
 
 		private string Replace(string s)
