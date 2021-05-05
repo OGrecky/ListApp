@@ -17,6 +17,7 @@ using System.Windows.Shell;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Security.Policy;
+using System.Windows.Threading;
 
 namespace ListApp
 {
@@ -37,11 +38,21 @@ namespace ListApp
 		static int num;
 		static bool delete = false;
 		static string sync = @"C:\Users\Public\Chart";
+		DispatcherTimer frogTimer;
 		public MainWindow()
 		{
 			InitializeComponent();
+			frogTimer = new DispatcherTimer();
+			TimeSpan ts = new TimeSpan(0, 0, 2);
+			frogTimer.Interval = ts;
+			frogTimer.Tick += ChangeFrog;
 		}
 
+		/// <summary>
+		/// Takes lists from files
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Window_Initialized(object sender, EventArgs e)
 		{
 			if (!Directory.Exists(directory))
@@ -111,9 +122,19 @@ namespace ListApp
 			Update();
 		}
 
+		/// <summary>
+		/// Shows picture for 2000 ms and then shows content;
+		/// Reads and changes locale (if needed)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Window_ContentRendered(object sender, EventArgs e)
 		{
-			System.Threading.Thread.Sleep(2000);
+			frogTimer.Start();
+		}
+		private void ChangeFrog(object sender, EventArgs e)
+        {
+			frogTimer.Stop();
 			CurrentStateScroll.Visibility = Visibility.Visible;
 			NeedScroll.Visibility = Visibility.Visible;
 			clearCurrent.Visibility = Visibility.Visible;
@@ -151,6 +172,7 @@ namespace ListApp
 		}
 
 		private void currentAdd_KeyDown(object sender, KeyEventArgs e)
+		
 		{
 			if (e.Key == Key.Enter)
 			{
@@ -165,6 +187,26 @@ namespace ListApp
 				OrderAction();
 			}
 		}
+
+		private void AddToSortedList(ref List<string> a, string add)
+        {
+			int l, r, m;
+			l = -1;
+			r = a.Count;
+            while (r - l > 1)
+            {
+				m = (r + l) / 2;
+                if (string.Compare(a[m], add) < 0)
+                {
+					l = m;
+                }
+                else
+                {
+					r = m;
+                }
+            }
+			a.Insert(r, add);
+        }
 
 		private void CurrentAction()
 		{
@@ -199,9 +241,10 @@ namespace ListApp
 					//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
 					//}
 					//isInList = false;
-					if (Find(cur, f))
+					if (Find(cur, ref f))
 					{
-						f.Add(cur);
+						//f.Add(cur);
+						AddToSortedList(ref f, cur);
 					}
 				}
 				else InvalidValue();
@@ -212,7 +255,8 @@ namespace ListApp
 				{
 					if (delete != true)
 					{
-						o.Add(f[num - 1]);
+						//o.Add(f[num - 1]);
+						AddToSortedList(ref o, f[num - 1]);
 					}
 					f.RemoveAt(num - 1);
 					delete = false;
@@ -305,9 +349,10 @@ namespace ListApp
 					//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
 					//}
 					//isInList = false;
-					if (Find(cur, f))
+					if (Find(cur, ref f))
 					{
-						f.Add(cur);
+						//f.Add(cur);
+						AddToSortedList(ref f, cur);
 					}
 				}
 				else InvalidValue();
@@ -318,7 +363,8 @@ namespace ListApp
 				{
 					if (delete != true)
 					{
-						o.Add(f[num - 1]);
+						//o.Add(f[num - 1]);
+						AddToSortedList(ref o, f[num - 1]);
 					}
 					f.RemoveAt(num - 1);
 					delete = false;
@@ -361,9 +407,9 @@ namespace ListApp
 				o[i] = o[i].ToLower();
 				o[i] = Replace(o[i]);
 			}
-			f.Sort();
-			o.Sort();
-			currentState.Text = "";
+            //f.Sort();
+            //o.Sort();
+            currentState.Text = "";
 			for (int i = 0; i < f.Count; i++)
 			{
 				currentState.Text += Convert.ToString(i + 1);
@@ -419,11 +465,40 @@ namespace ListApp
 			}
 		}
 
+		List<string> Merge(List<string> a, List<string> b)
+        {
+			List<string> res = new List<string>();
+			int i = 0;
+			int j = 0;
+            while (i < a.Count && j < b.Count)
+            {
+                if (string.Compare(a[i], b[j]) < 0)
+                {
+					res.Add(a[i++]);
+                }
+                else
+                {
+					res.Add(b[j++]);
+                }
+            }
+            while (i < a.Count)
+            {
+				res.Add(a[i++]);
+            }
+            while (j < b.Count)
+            {
+				res.Add(b[j++]);
+            }
+			return res;
+        }
+
 		private void clearOrder_Click(object sender, RoutedEventArgs e)
 		{
-			f.AddRange(o);
-			o.Clear();
-			Update();
+
+			//f.AddRange(o);
+			f = Merge(f, o);
+            o.Clear();
+            Update();
 		}
 
 		private void PrintCurrent_Click(object sender, RoutedEventArgs e)
@@ -487,7 +562,7 @@ namespace ListApp
 				}
 			}
 		}
-		private bool Find(string s, List<string> collection)
+		private bool Find(string s, ref List<string> collection)
 		{
 			List<string> found = new List<string>();
 			string res = "";
