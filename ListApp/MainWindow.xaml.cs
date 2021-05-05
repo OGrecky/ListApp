@@ -349,10 +349,10 @@ namespace ListApp
 					//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
 					//}
 					//isInList = false;
-					if (Find(cur, ref f))
+					if (Find(cur, ref o))
 					{
 						//f.Add(cur);
-						AddToSortedList(ref f, cur);
+						AddToSortedList(ref o, cur);
 					}
 				}
 				else InvalidValue();
@@ -364,9 +364,9 @@ namespace ListApp
 					if (delete != true)
 					{
 						//o.Add(f[num - 1]);
-						AddToSortedList(ref o, f[num - 1]);
+						AddToSortedList(ref f, o[num - 1]);
 					}
-					f.RemoveAt(num - 1);
+					o.RemoveAt(num - 1);
 					delete = false;
 				}
 				catch (Exception)
