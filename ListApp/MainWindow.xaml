@@ -59,9 +59,6 @@
         </Button>
         <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="English" FontSize="30pt" Name="EnglishVersionButton" Click="EnglishVersionButton_Click" Visibility="Hidden"/>
         <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="Русский язык" FontSize="25pt" Name="RussianVersionButton" Click="RussianVersionButton_Click" Visibility="Hidden" IsEnabled="False"/>
-        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10">
-            
-        </TextBlock>
         <Image Visibility="Visible" Name="FrogImage" Source="frog.jpg" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5" Margin="10,10,10,10"/>
     </Grid>
 </Window>
