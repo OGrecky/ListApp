@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ListApp"
         mc:Ignorable="d"
-        Title="Корзинка" Height="810" Width="1440" MinHeight="810" MinWidth="1440" Closing="Window_Closing" Background="#b9f0b9" Icon="frog.jpg" WindowState="Maximized" Initialized="Window_Initialized" ContentRendered="Window_ContentRendered">
-    <Grid Width="1366" Height="768" MinWidth="800" MinHeight="600">
+        Title="" Closing="Window_Closing" Background="#b9f0b9" Icon="frog.jpg" WindowState="Maximized" Initialized="Window_Initialized" ContentRendered="Window_ContentRendered">
+    <Grid Margin="50,50,50,50">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MaxWidth="960"/>
             <ColumnDefinition Width="*" MaxWidth="160"/>
@@ -27,38 +27,41 @@
         </ScrollViewer>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="0" Name="clearCurrent" Click="clearCurrent_Click" Visibility="Hidden">
             <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearFreezerText">
-                Очистить<LineBreak/>список
+                <!--Очистить<LineBreak/>список-->
             </TextBlock>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="1" Name="PrintCurrent" Click="PrintCurrent_Click" Visibility="Hidden">
             <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintCurrentText">
-                Версия<LineBreak/>для<LineBreak/>печати
+                <!--Версия<LineBreak/>для<LineBreak/>печати-->
             </TextBlock>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="2" Name="clearOrder" Click="clearOrder_Click" Visibility="Hidden">
             <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearOrderText">
-                Очистить<LineBreak/>список<LineBreak/>и перенести<LineBreak/>наверх
+                <!--Очистить<LineBreak/>список<LineBreak/>и перенести<LineBreak/>наверх-->
             </TextBlock>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="3" Name="PrintOrder" Click="PrintOrder_Click" Visibility="Hidden">
             <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintOrderText">
-                Версия<LineBreak/>для<LineBreak/>печати
+                <!--Версия<LineBreak/>для<LineBreak/>печати-->
             </TextBlock>
         </Button>
         <TextBox Grid.Column="2" Grid.Row="0" FontSize="18pt" Margin="10,10,10,10" Name="currentAdd" KeyDown="currentAdd_KeyDown" Visibility="Hidden"/>
         <Button Grid.Column="2" Grid.Row="1" FontSize="20pt" Margin="10,10,10,10" Name="currentAddButton" Click="currentAddButton_Click" Visibility="Hidden">
             <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToUseText">
-                Едим сейчас (нужно еще - N,<LineBreak/>больше не нужно - N!,<LineBreak/>не было раньше - наберите название)
+                <!--Едим сейчас (нужно еще - N,<LineBreak/>больше не нужно - N!,<LineBreak/>не было раньше - наберите название)-->
             </TextBlock>
         </Button>
         <TextBox Grid.Column="2" Grid.Row="2" FontSize="18pt" Margin="10,10,10,10" Name="orderAdd" KeyDown="orderAdd_KeyDown" Visibility="Hidden"/>
         <Button Grid.Column="2" Grid.Row="3" FontSize="20pt" Margin="10,10,10,10" Name="orderAddButton" Click="orderAddButton_Click" Visibility="Hidden">
             <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToBuyText">
-                Будем есть (добавить - наберите название,<LineBreak/>удалить - введите номер)
+                <!--Будем есть (добавить - наберите название,<LineBreak/>перенести наверх - N,<LineBreak/>удалить - N!)-->
             </TextBlock>
         </Button>
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="English" FontSize="30pt" Name="EnglishVersionButton" Click="EnglishVersionButton_Click" Visibility="Hidden"/>
-        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="Русский язык" FontSize="25pt" Name="RussianVersionButton" Click="RussianVersionButton_Click" Visibility="Hidden" IsEnabled="False"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="English" FontSize="30pt" Name="EnglishVersionButton" Click="EnglishVersionButton_Click" Visibility="Hidden"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="Русский язык" FontSize="25pt" Name="RussianVersionButton" Click="RussianVersionButton_Click" Visibility="Hidden" IsEnabled="False"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10">
+            
+        </TextBlock>
         <Image Visibility="Visible" Name="FrogImage" Source="frog.jpg" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5" Margin="10,10,10,10"/>
     </Grid>
 </Window>

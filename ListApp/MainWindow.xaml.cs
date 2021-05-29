@@ -26,6 +26,7 @@ namespace ListApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		string ver = "3.2.2";
 		static string directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Chart");
 		static string freezer = @"fridge.txt";
 		static string order = @"order.txt";
@@ -107,7 +108,6 @@ namespace ListApp
 					}
 				}
 			}
-
 
 			s = File.ReadAllLines(System.IO.Path.Combine(directory, freezer));
 			for (int i = 0; i < s.Length; i++)
@@ -616,7 +616,7 @@ namespace ListApp
 				ClearOrderText.Text = "Очистить\nсписок\nи перенести\nнаверх";
 				PrintOrderText.Text = "Версия\nдля\nпечати";
 				StuffToUseText.Text = "Едим сейчас (нужно еще - N,\nбольше не нужно - N!,\nне было раньше - наберите название)";
-				StuffToBuyText.Text = "Будем есть (добавить - наберите название,\nудалить - введите номер)";
+				StuffToBuyText.Text = "Будем есть (добавить - наберите название,\nперенести наверх - N,\nудалить - N!)";
 				RussianVersionButton.IsEnabled = false;
 				RussianVersionButton.Visibility = Visibility.Hidden;
 				EnglishVersionButton.IsEnabled = true;
@@ -633,7 +633,7 @@ namespace ListApp
 				ClearOrderText.Text = "Accept\nand\nclear";
 				PrintOrderText.Text = "Print";
 				StuffToUseText.Text = "Stuff to use\nrepeat - type the number,\nnever again - type the number, then \"!\",\nnever before - type the name";
-				StuffToBuyText.Text = "Stuff to buy\nadd - type the name,\n remove - type the number";
+				StuffToBuyText.Text = "Stuff to buy\nadd - type the name,\nmove to the first list - type N,\n remove permanently - N!";
 				EnglishVersionButton.IsEnabled = false;
 				EnglishVersionButton.Visibility = Visibility.Hidden;
 				RussianVersionButton.IsEnabled = true;
@@ -669,5 +669,5 @@ namespace ListApp
 			//}
 			else { ChangeLanguage("en-US"); return; }
 		}
-	}
+    }
 }
