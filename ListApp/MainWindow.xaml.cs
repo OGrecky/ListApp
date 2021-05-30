@@ -26,8 +26,7 @@ namespace ListApp
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		string ver = "3.2.2";
-		static string directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Chart");
+        static string directory = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Chart");
 		static string freezer = @"fridge.txt";
 		static string order = @"order.txt";
 		string locale;
@@ -132,8 +131,14 @@ namespace ListApp
 		{
 			frogTimer.Start();
 		}
+
+		/// <summary>
+		/// Replaces 'Frog' image on startup with the program content
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void ChangeFrog(object sender, EventArgs e)
-        {
+		{
 			frogTimer.Stop();
 			CurrentStateScroll.Visibility = Visibility.Visible;
 			NeedScroll.Visibility = Visibility.Visible;
@@ -188,26 +193,34 @@ namespace ListApp
 			}
 		}
 
+		/// <summary>
+		/// Adds one new item to sorted List using binary search
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="add"></param>
 		private void AddToSortedList(ref List<string> a, string add)
-        {
+		{
 			int l, r, m;
 			l = -1;
 			r = a.Count;
-            while (r - l > 1)
-            {
+			while (r - l > 1)
+			{
 				m = (r + l) / 2;
-                if (string.Compare(a[m], add) < 0)
-                {
+				if (string.Compare(a[m], add) < 0)
+				{
 					l = m;
-                }
-                else
-                {
+				}
+				else
+				{
 					r = m;
-                }
-            }
+				}
+			}
 			a.Insert(r, add);
-        }
+		}
 
+		/// <summary>
+		/// Adds new item to the Current list or moves the item to the Order list
+		/// </summary>
 		private void CurrentAction()
 		{
 			cur = currentAdd.Text;
@@ -270,52 +283,9 @@ namespace ListApp
 			Update();
 		}
 
-		//private void OrderAction()
-		//{
-		//	cur = orderAdd.Text;
-		//	orderAdd.Text = "";
-		//	if (!int.TryParse(cur, out num))
-		//	{
-		//		if (cur != "")
-		//		{
-		//			//isInList = false;
-		//			//for (int i = 0; i < o.Count; i++)
-		//			//{
-		//			//	if (o[i] == cur)
-		//			//	{
-		//			//		isInList = true;
-		//			//	}
-		//			//}
-		//			//if (!isInList)
-		//			//{
-		//			//	o.Add(cur);
-		//			//}
-		//			//else
-		//			//{
-		//			//	MessageBox.Show("У Вас уже есть " + cur + " в списке");
-		//			//}
-		//			//isInList = false;
-		//			cur = cur.ToLower();
-		//			if (Find(cur, o))
-		//			{
-		//				o.Add(cur);
-		//			}
-		//		}
-		//	}
-		//	else
-		//	{
-		//		try
-		//		{
-		//			o.RemoveAt(num - 1);
-		//		}
-		//		catch (Exception)
-		//		{
-		//			MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
-		//		}
-		//	}
-		//	Update();
-		//}
-
+		/// <summary>
+		/// Adds new item to the Order list or moves the item to the Current list
+		/// </summary>
 		private void OrderAction()
 		{
 			cur = orderAdd.Text;
@@ -378,8 +348,12 @@ namespace ListApp
 			Update();
 		}
 
+		/// <summary>
+		/// Shows MessageBox for invalid entered value.
+		/// The function is used by BOTH CurrentAction() and OrderAction()
+		/// </summary>
 		private void InvalidValue()
-        {
+		{
 			if (System.Globalization.CultureInfo.CurrentCulture.Name == "ru-RU")
 			{
 				MessageBox.Show("Неверно задано значение. Попробуйте ещё раз");
@@ -390,11 +364,19 @@ namespace ListApp
 			}
 		}
 
+		/// <summary>
+		/// Replaces all 'ё' chars with 'е' chars in Russian items
+		/// </summary>
+		/// <param name="s">Item string</param>
+		/// <returns></returns>
 		private string Replace(string s)
 		{
 			return s.Replace('ё', 'е');
 		}
 
+		/// <summary>
+		/// Updates lists in UI
+		/// </summary>
 		private void Update()
 		{
 			for (int i = 0; i < f.Count; i++)
@@ -407,9 +389,9 @@ namespace ListApp
 				o[i] = o[i].ToLower();
 				o[i] = Replace(o[i]);
 			}
-            //f.Sort();
-            //o.Sort();
-            currentState.Text = "";
+			//f.Sort();
+			//o.Sort();
+			currentState.Text = "";
 			for (int i = 0; i < f.Count; i++)
 			{
 				currentState.Text += Convert.ToString(i + 1);
@@ -428,6 +410,11 @@ namespace ListApp
 			SaveFiles();
 		}
 
+		/// <summary>
+		/// Saves lists and clears files from Temp directory
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			SaveFiles();
@@ -445,18 +432,23 @@ namespace ListApp
 			}
 		}
 
+		/// <summary>
+		/// Clears Current list
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void clearCurrent_Click(object sender, RoutedEventArgs e)
 		{
-            if (System.Globalization.CultureInfo.CurrentCulture.Name == "ru-RU")
-            {
+			if (System.Globalization.CultureInfo.CurrentCulture.Name == "ru-RU")
+			{
 				if (MessageBox.Show("Вы уверены, что хотите очистить список продуктов, которые сейчас едите?", "Вы уверены?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
 					f.Clear();
 					Update();
 				}
 			}
-            else
-            {
+			else
+			{
 				if (MessageBox.Show("Are you sure you want to clear the list of products you eat now?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
 				{
 					f.Clear();
@@ -465,42 +457,60 @@ namespace ListApp
 			}
 		}
 
+		/// <summary>
+		/// Merges two sorted Lists
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
 		List<string> Merge(List<string> a, List<string> b)
-        {
+		{
 			List<string> res = new List<string>();
 			int i = 0;
 			int j = 0;
-            while (i < a.Count && j < b.Count)
-            {
-                if (string.Compare(a[i], b[j]) < 0)
-                {
+			while (i < a.Count && j < b.Count)
+			{
+				if (string.Compare(a[i], b[j]) < 0)
+				{
 					res.Add(a[i++]);
-                }
-                else
-                {
+				}
+				else
+				{
 					res.Add(b[j++]);
-                }
-            }
-            while (i < a.Count)
-            {
+				}
+			}
+			while (i < a.Count)
+			{
 				res.Add(a[i++]);
-            }
-            while (j < b.Count)
-            {
+			}
+			while (j < b.Count)
+			{
 				res.Add(b[j++]);
-            }
+			}
 			return res;
-        }
-
-		private void clearOrder_Click(object sender, RoutedEventArgs e)
-		{
-
-			//f.AddRange(o);
-			f = Merge(f, o);
-            o.Clear();
-            Update();
 		}
 
+		/// <summary>
+		/// Moves the Order list to the Current list
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void clearOrder_Click(object sender, RoutedEventArgs e)
+		{
+			if (MessageBox.Show("Вы уверены, что хотите очистить список покупок и перенести его элементы в список \"Едим сейчас\"?", "Вы уверены?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+			{
+				f = Merge(f, o);
+				o.Clear();
+				Update();
+			}
+		}
+
+		/// <summary>
+		/// Opens default text editor with Current list.
+		/// No changes saved
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void PrintCurrent_Click(object sender, RoutedEventArgs e)
 		{
 			if (File.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\fridge.txt")))
@@ -511,6 +521,11 @@ namespace ListApp
 			Process.Start(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\fridge.txt"));
 		}
 
+		/// <summary>
+		/// Opens default text editor with Order list. No changes saved
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void PrintOrder_Click(object sender, RoutedEventArgs e)
 		{
 			if (File.Exists(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\order.txt")))
@@ -520,6 +535,10 @@ namespace ListApp
 			File.Copy(System.IO.Path.Combine(directory, order), System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\order.txt"));
 			Process.Start(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Temp\order.txt"));
 		}
+
+		/// <summary>
+		/// Saves lists in text files in Local directory and in Public directory
+		/// </summary>
 		private void SaveFiles()
 		{
 			using (StreamWriter sw = new StreamWriter(System.IO.Path.Combine(directory, freezer), false))
@@ -562,6 +581,13 @@ namespace ListApp
 				}
 			}
 		}
+
+		/// <summary>
+		/// Finds all items in collection which contain given string
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="collection"></param>
+		/// <returns></returns>
 		private bool Find(string s, ref List<string> collection)
 		{
 			List<string> found = new List<string>();
@@ -593,17 +619,32 @@ namespace ListApp
 			return true;
 		}
 
+		/// <summary>
+		/// Handles EnglishVersionButton.Click event
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void EnglishVersionButton_Click(object sender, RoutedEventArgs e)
 		{
 			locale = "en-US";
 			ChangeLanguage(locale);
 		}
 
+		/// <summary>
+		/// Handles RussianVersionButton.Click event
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void RussianVersionButton_Click(object sender, RoutedEventArgs e)
 		{
 			locale = "ru-RU";
 			ChangeLanguage(locale);
 		}
+
+		/// <summary>
+		/// Changes language
+		/// </summary>
+		/// <param name="locale"></param>
 		private void ChangeLanguage(string locale)
 		{
 			if (locale == "ru-RU")
@@ -669,5 +710,5 @@ namespace ListApp
 			//}
 			else { ChangeLanguage("en-US"); return; }
 		}
-    }
+	}
 }
