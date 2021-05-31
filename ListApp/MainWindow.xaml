@@ -20,45 +20,234 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Name="CurrentStateScroll" Visibility="Hidden">
-            <TextBlock FontSize="18pt" Margin="10,10,10,10" Name="currentState" Background="Beige"/>
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Foreground" Value="#048"/>
+                </Style>
+            </ScrollViewer.Style>
+            <TextBlock FontSize="18pt" Margin="10,10,10,10" Name="currentState" Background="#DEC"/>
         </ScrollViewer>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Name="NeedScroll" Visibility="Hidden">
-            <TextBlock FontSize="18pt" Margin="10,10,10,10" Name="need" Background="Lavender"/>
+            <ScrollViewer.Style>
+                <Style TargetType="ScrollViewer">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Foreground" Value="#840"/>
+                </Style>
+            </ScrollViewer.Style>
+            <TextBlock FontSize="18pt" Margin="10,10,10,10" Name="need" Background="#CED"/>
         </ScrollViewer>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="0" Name="clearCurrent" Click="clearCurrent_Click" Visibility="Hidden">
-            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearFreezerText">
-                <!--Очистить<LineBreak/>список-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#59C" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearFreezerText" Foreground="#048"/>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="1" Name="PrintCurrent" Click="PrintCurrent_Click" Visibility="Hidden">
-            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintCurrentText">
-                <!--Версия<LineBreak/>для<LineBreak/>печати-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#59C" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintCurrentText" Foreground="#048"/>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="2" Name="clearOrder" Click="clearOrder_Click" Visibility="Hidden">
-            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearOrderText">
-                <!--Очистить<LineBreak/>список<LineBreak/>и перенести<LineBreak/>наверх-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#C95" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="ClearOrderText" Foreground="#840"/>
         </Button>
         <Button Grid.Column="1" FontSize="18pt" Margin="10,10,10,10" Grid.Row="3" Name="PrintOrder" Click="PrintOrder_Click" Visibility="Hidden">
-            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintOrderText">
-                <!--Версия<LineBreak/>для<LineBreak/>печати-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#C95" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="PrintOrderText" Foreground="#840"/>
         </Button>
-        <TextBox Grid.Column="2" Grid.Row="0" FontSize="18pt" Margin="10,10,10,10" Name="currentAdd" KeyDown="currentAdd_KeyDown" Visibility="Hidden"/>
+        <!--<Label Grid.Column="2" Grid.Row="0" FontSize="18pt" FontWeight="UltraLight" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="Type here:"/>-->
+        <TextBox Grid.Column="2" Grid.Row="0" FontSize="18pt" Margin="10,10,10,10" Name="currentAdd" KeyDown="currentAdd_KeyDown" Visibility="Hidden">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="#a9e0a9"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="Foreground" Value="#048"/>
+                    <Setter Property="BorderBrush" Value="#59C"/>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Button Grid.Column="2" Grid.Row="1" FontSize="20pt" Margin="10,10,10,10" Name="currentAddButton" Click="currentAddButton_Click" Visibility="Hidden">
-            <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToUseText">
-                <!--Едим сейчас (нужно еще - N,<LineBreak/>больше не нужно - N!,<LineBreak/>не было раньше - наберите название)-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#59C" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToUseText" Foreground="#048"/>
         </Button>
-        <TextBox Grid.Column="2" Grid.Row="2" FontSize="18pt" Margin="10,10,10,10" Name="orderAdd" KeyDown="orderAdd_KeyDown" Visibility="Hidden"/>
+        <TextBox Grid.Column="2" Grid.Row="2" FontSize="18pt" Margin="10,10,10,10" Name="orderAdd" KeyDown="orderAdd_KeyDown" Visibility="Hidden">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Background" Value="#a9e0a9"/>
+                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalAlignment" Value="Bottom"/>
+                    <Setter Property="Foreground" Value="#840"/>
+                    <Setter Property="BorderBrush" Value="#C95"/>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Button Grid.Column="2" Grid.Row="3" FontSize="20pt" Margin="10,10,10,10" Name="orderAddButton" Click="orderAddButton_Click" Visibility="Hidden">
-            <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToBuyText">
-                <!--Будем есть (добавить - наберите название,<LineBreak/>перенести наверх - N,<LineBreak/>удалить - N!)-->
-            </TextBlock>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#C95" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <TextBlock Width="auto" Height="auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextAlignment="Center" Name="StuffToBuyText" Foreground="#840"/>
         </Button>
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="English" FontSize="30pt" Name="EnglishVersionButton" Click="EnglishVersionButton_Click" Visibility="Hidden"/>
-        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="Русский язык" FontSize="25pt" Name="RussianVersionButton" Click="RussianVersionButton_Click" Visibility="Hidden" IsEnabled="False"/>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="English" FontSize="30pt" Name="EnglishVersionButton" Click="EnglishVersionButton_Click" Visibility="Hidden">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Foreground" Value="#222"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#999" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10,10,10,10" Content="Русский язык" FontSize="25pt" Name="RussianVersionButton" Click="RussianVersionButton_Click" Visibility="Hidden" IsEnabled="False">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="FontWeight" Value="UltraLight"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Foreground" Value="#222"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border Background="Transparent" BorderBrush="#999" BorderThickness="1" CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#b9f0b9"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
         <Image Visibility="Visible" Name="FrogImage" Source="frog.jpg" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5" Margin="10,10,10,10"/>
     </Grid>
 </Window>
