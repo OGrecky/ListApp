@@ -8,15 +8,15 @@
         Title="" Closing="Window_Closing" Background="#b9f0b9" Icon="frog.jpg" WindowState="Maximized" Initialized="Window_Initialized" ContentRendered="Window_ContentRendered">
     <Grid Margin="50,50,50,50">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MaxWidth="960"/>
-            <ColumnDefinition Width="*" MaxWidth="160"/>
-            <ColumnDefinition Width="*" MaxWidth="800"/>
+            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="2*" MinWidth="160"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MaxHeight="270"/>
-            <RowDefinition Height="*" MaxHeight="270"/>
-            <RowDefinition Height="*" MaxHeight="270"/>
-            <RowDefinition Height="*" MaxHeight="270"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Name="CurrentStateScroll" Visibility="Hidden">
