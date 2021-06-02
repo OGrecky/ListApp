@@ -143,7 +143,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Grid.Column="2" Grid.Row="1" FontSize="20pt" Margin="10,10,10,10" Name="currentAddButton" Click="currentAddButton_Click" Visibility="Hidden">
+        <Button Grid.Column="2" Grid.Row="1" FontSize="18pt" Margin="10,10,10,10" Name="currentAddButton" Click="currentAddButton_Click" Visibility="Hidden">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="FontWeight" Value="UltraLight"/>
@@ -179,7 +179,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Grid.Column="2" Grid.Row="3" FontSize="20pt" Margin="10,10,10,10" Name="orderAddButton" Click="orderAddButton_Click" Visibility="Hidden">
+        <Button Grid.Column="2" Grid.Row="3" FontSize="18pt" Margin="10,10,10,10" Name="orderAddButton" Click="orderAddButton_Click" Visibility="Hidden">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="FontWeight" Value="UltraLight"/>

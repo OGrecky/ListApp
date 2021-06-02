@@ -3,7 +3,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_CURRENT_YEAR" Value="2021" ValueLocId="-"/>
-    <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_SCREEN_RESOLUTION_X;AI_DETECTED_SCREEN_RESOLUTION_Y;AI_DETECTED_DOTNET_VERSION"/>
+    <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_DOTNET_VERSION;AI_DETECTED_SCREEN_RESOLUTION_X;AI_DETECTED_SCREEN_RESOLUTION_Y"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_ListApp.exe" Value="..\ListApp\bin\Release"/>
     <ROW Property="AI_PROPPATH_DIR_PERBUILD_ListApp.exe.config" Value="..\ListApp\bin\Release"/>
     <ROW Property="AI_PROPPATH_FILENAME_PERBUILD_ListApp.exe" Value="ListApp.exe"/>
@@ -11,14 +11,14 @@
     <ROW Property="AI_REQUIRED_DOTNET_DISPLAY" MultiBuildValue="DefaultBuild:4.6" ValueLocId="-"/>
     <ROW Property="AI_REQUIRED_DOTNET_VERSION" MultiBuildValue="DefaultBuild:4.6" ValueLocId="-"/>
     <ROW Property="AI_REQUIRED_SCREEN_RESOLUTION_X" MultiBuildValue="DefaultBuild:1280" ValueLocId="-"/>
-    <ROW Property="AI_REQUIRED_SCREEN_RESOLUTION_Y" MultiBuildValue="DefaultBuild:1024" ValueLocId="-"/>
+    <ROW Property="AI_REQUIRED_SCREEN_RESOLUTION_Y" MultiBuildValue="DefaultBuild:960" ValueLocId="-"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPPRODUCTICON" Value="Chart.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="Egor"/>
-    <ROW Property="ProductCode" Value="1033:{1B666D3D-41B5-4E4E-AB33-AB794937A41E} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{6A971839-A3BD-4BAB-BF9D-BECBC1A226C3} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Chart"/>
-    <ROW Property="ProductVersion" Value="3.3.1" Type="32"/>
+    <ROW Property="ProductVersion" Value="3.3.2" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{8864F9D1-A4A3-4E2A-80DB-31997E37728A}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
