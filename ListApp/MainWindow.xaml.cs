@@ -19,8 +19,8 @@ namespace ListApp
         static string order = @"order.txt";
         string locale;
         static string localeFile = @"locale.txt";
-        static List<string> f = new List<string>();
-        static List<string> o = new List<string>();
+        static List<string> fridgeList = new List<string>();
+        static List<string> orderList = new List<string>();
         static string[] s;
         static string cur;
         static int num;
@@ -99,12 +99,12 @@ namespace ListApp
             s = File.ReadAllLines(System.IO.Path.Combine(directory, freezer));
             for (int i = 0; i < s.Length; i++)
             {
-                f.Add(s[i]);
+                fridgeList.Add(s[i]);
             }
             s = File.ReadAllLines(System.IO.Path.Combine(directory, order));
             for (int i = 0; i < s.Length; i++)
             {
-                o.Add(s[i]);
+                orderList.Add(s[i]);
             }
             Update();
         }
@@ -211,64 +211,9 @@ namespace ListApp
         /// </summary>
         private void CurrentAction()
         {
-            cur = currentAdd.Text;
+            string curAdd = currentAdd.Text;
             currentAdd.Text = "";
-        A:
-            if (!int.TryParse(cur, out num))
-            {
-                if (cur.Length > 0 && cur[cur.Length - 1] == '!' && delete == false)
-                {
-                    delete = true;
-                    cur = cur.Remove(cur.Length - 1, 1);
-                    goto A;
-                }
-                if (cur != "")
-                {
-                    cur = cur.ToLower();
-                    //isInList = false;
-                    //for (int i = 0; i < f.Count; i++)
-                    //{
-                    //	if (f[i] == cur)
-                    //	{
-                    //		isInList = true;
-                    //	}
-                    //}
-                    //if (!isInList)
-                    //{
-                    //	f.Add(cur);
-                    //}
-                    //else
-                    //{
-                    //	MessageBox.Show("У Вас уже есть " + cur + " в списке");
-                    //}
-                    //isInList = false;
-                    if (Find(cur, ref f))
-                    {
-                        //f.Add(cur);
-                        AddToSortedList(ref f, cur);
-                    }
-                }
-                else InvalidValue();
-            }
-            else
-            {
-                try
-                {
-                    if (delete != true)
-                    {
-                        //o.Add(f[num - 1]);
-                        AddToSortedList(ref o, f[num - 1]);
-                    }
-                    f.RemoveAt(num - 1);
-                    delete = false;
-                }
-                catch (Exception)
-                {
-                    InvalidValue();
-                }
-            }
-            delete = false;
-            Update();
+            FindOrInsert(ref fridgeList, ref orderList, curAdd);
         }
 
         /// <summary>
@@ -276,60 +221,80 @@ namespace ListApp
         /// </summary>
         private void OrderAction()
         {
-            cur = orderAdd.Text;
+            string curAdd = orderAdd.Text;
             orderAdd.Text = "";
-        A:
+            FindOrInsert(ref orderList, ref fridgeList, curAdd);
+        }
+
+        /// <summary>
+        /// Takes two lists with items and new item and tries to insert new item to the given list,
+        /// or delete item,
+        /// or move item to the other given list
+        /// </summary>
+        /// <param name="where">List the item should be inserted</param>
+        /// <param name="other">List the item may be transfered to</param>
+        private void FindOrInsert(ref List<string> where, ref List<string> other, string cur)
+        {
+        TryFind:
             if (!int.TryParse(cur, out num))
             {
+                bool add = true;
                 if (cur.Length > 0 && cur[cur.Length - 1] == '!' && delete == false)
                 {
                     delete = true;
                     cur = cur.Remove(cur.Length - 1, 1);
-                    goto A;
+                    goto TryFind;
                 }
-                if (cur != "")
+                else if (cur.Length > 0 && cur[cur.Length - 1] == '?' && delete == false)
+                {
+                    cur = cur.Remove(cur.Length - 1, 1);
+                    if (int.TryParse(cur, out int index))
+                    {
+                        if (index > where.Count || index <= 0)
+                        {
+                            InvalidValue();
+                        }
+                        else
+                        {
+                            if (locale == "ru-RU")
+                            {
+                                MessageBox.Show(where[index - 1], "Поиск по номеру");
+                            }
+                            else
+                            {
+                                MessageBox.Show(where[index - 1], "Find by number");
+                            }
+                        }
+                    }
+                    add = false;
+                }
+                if (add && cur != "")
                 {
                     cur = cur.ToLower();
-                    //isInList = false;
-                    //for (int i = 0; i < f.Count; i++)
-                    //{
-                    //	if (f[i] == cur)
-                    //	{
-                    //		isInList = true;
-                    //	}
-                    //}
-                    //if (!isInList)
-                    //{
-                    //	f.Add(cur);
-                    //}
-                    //else
-                    //{
-                    //	MessageBox.Show("У Вас уже есть " + cur + " в списке");
-                    //}
-                    //isInList = false;
-                    if (Find(cur, ref o))
+                    if (Find(cur, ref where))
                     {
-                        //f.Add(cur);
-                        AddToSortedList(ref o, cur);
+                        AddToSortedList(ref where, cur);
                     }
                 }
-                else InvalidValue();
+                else if (add)
+                {
+                    InvalidValue();
+                }
             }
             else
             {
-                try
+                if (num > where.Count || num <= 0)
+                {
+                    InvalidValue();
+                }
+                else
                 {
                     if (delete != true)
                     {
-                        //o.Add(f[num - 1]);
-                        AddToSortedList(ref f, o[num - 1]);
+                        AddToSortedList(ref other, where[num - 1]);
                     }
-                    o.RemoveAt(num - 1);
+                    where.RemoveAt(num - 1);
                     delete = false;
-                }
-                catch (Exception)
-                {
-                    InvalidValue();
                 }
             }
             delete = false;
@@ -367,32 +332,32 @@ namespace ListApp
         /// </summary>
         private void Update()
         {
-            for (int i = 0; i < f.Count; i++)
+            for (int i = 0; i < fridgeList.Count; i++)
             {
-                f[i] = f[i].ToLower();
-                f[i] = Replace(f[i]);
+                fridgeList[i] = fridgeList[i].ToLower();
+                fridgeList[i] = Replace(fridgeList[i]);
             }
-            for (int i = 0; i < o.Count; i++)
+            for (int i = 0; i < orderList.Count; i++)
             {
-                o[i] = o[i].ToLower();
-                o[i] = Replace(o[i]);
+                orderList[i] = orderList[i].ToLower();
+                orderList[i] = Replace(orderList[i]);
             }
-            //f.Sort();
-            //o.Sort();
+            //fridgeList.Sort();
+            //orderList.Sort();
             currentState.Text = "";
-            for (int i = 0; i < f.Count; i++)
+            for (int i = 0; i < fridgeList.Count; i++)
             {
                 currentState.Text += Convert.ToString(i + 1);
                 currentState.Text += ". ";
-                currentState.Text += f[i];
+                currentState.Text += fridgeList[i];
                 currentState.Text += "\n";
             }
             need.Text = "";
-            for (int i = 0; i < o.Count; i++)
+            for (int i = 0; i < orderList.Count; i++)
             {
                 need.Text += Convert.ToString(i + 1);
                 need.Text += ". ";
-                need.Text += o[i];
+                need.Text += orderList[i];
                 need.Text += "\n";
             }
             SaveFiles();
@@ -431,7 +396,7 @@ namespace ListApp
             {
                 if (MessageBox.Show("Вы уверены, что хотите очистить список продуктов, которые сейчас едите?", "Вы уверены?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    f.Clear();
+                    fridgeList.Clear();
                     Update();
                 }
             }
@@ -439,7 +404,7 @@ namespace ListApp
             {
                 if (MessageBox.Show("Are you sure you want to clear the list of products you eat now?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    f.Clear();
+                    fridgeList.Clear();
                     Update();
                 }
             }
@@ -489,8 +454,8 @@ namespace ListApp
             {
                 if (MessageBox.Show("Вы уверены, что хотите очистить список покупок и перенести его элементы в список \"Едим сейчас\"?", "Вы уверены?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    f = Merge(f, o);
-                    o.Clear();
+                    fridgeList = Merge(fridgeList, orderList);
+                    orderList.Clear();
                     Update();
                 }
             }
@@ -498,8 +463,8 @@ namespace ListApp
             {
                 if (MessageBox.Show("Are you sure you want to clear the list of products to buy and move the items to the \"Stuff to use\" list?", "Are you sure?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    f = Merge(f, o);
-                    o.Clear();
+                    fridgeList = Merge(fridgeList, orderList);
+                    orderList.Clear();
                     Update();
                 }
             }
@@ -543,16 +508,16 @@ namespace ListApp
         {
             using (StreamWriter sw = new StreamWriter(System.IO.Path.Combine(directory, freezer), false))
             {
-                for (int i = 0; i < f.Count; i++)
+                for (int i = 0; i < fridgeList.Count; i++)
                 {
-                    sw.WriteLine(f[i]);
+                    sw.WriteLine(fridgeList[i]);
                 }
             }
             using (StreamWriter sw = new StreamWriter(System.IO.Path.Combine(directory, order), false))
             {
-                for (int i = 0; i < o.Count; i++)
+                for (int i = 0; i < orderList.Count; i++)
                 {
-                    sw.WriteLine(o[i]);
+                    sw.WriteLine(orderList[i]);
                 }
             }
             // Sync to Public
@@ -609,7 +574,19 @@ namespace ListApp
             }
             if (res != "")
             {
-                MessageBoxResult mr = MessageBox.Show("У вас есть пункты, частично или полностью содержащие " + s + ":\n" + res + "Добавить в список?", "Результаты поиска", MessageBoxButton.YesNo);
+                string text;
+                string caption;
+                if (locale == "ru-RU")
+                {
+                    text = "У вас есть пункты, частично или полностью содержащие " + s + ":\n" + res + "Добавить " + s + " в список?";
+                    caption = "Результаты поиска";
+                }
+                else
+                {
+                    text = "Some items include " + s + ":\n" + res + "Should I add " + s + " to the list anyway?";
+                    caption = "Search results";
+                }
+                MessageBoxResult mr = MessageBox.Show(text, caption, MessageBoxButton.YesNo);
                 if (mr == MessageBoxResult.Yes)
                 {
                     return true;
